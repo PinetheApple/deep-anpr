@@ -218,7 +218,7 @@ def generate_bg(num_bg_images):
     found = False
     while not found:
         fname = "bgs/{:08d}.jpg".format(random.randint(0, num_bg_images - 1))
-        bg = cv2.imread(fname, cv2.CV_LOAD_IMAGE_GRAYSCALE) / 255.
+        bg = cv2.imread(fname, cv2.IMREAD_GRAYSCALE) / 255.
         if (bg.shape[1] >= OUTPUT_SHAPE[1] and
             bg.shape[0] >= OUTPUT_SHAPE[0]):
             found = True
@@ -259,7 +259,6 @@ def generate_im(char_ims, num_bg_images):
 def load_fonts(folder_path):
     font_char_ims = {}
     fonts = [f for f in os.listdir(folder_path) if f.endswith('.ttf')]
-    print(fonts)
     for font in fonts:
         font_char_ims[font] = dict(make_char_ims(os.path.join(folder_path,
                                                               font),
@@ -277,7 +276,6 @@ def generate_ims():
     """
     variation = 1.0
     fonts, font_char_ims = load_fonts(FONT_DIR)
-    print(fonts)
     num_bg_images = len(os.listdir("bgs"))
     while True:
         yield generate_im(font_char_ims[random.choice(fonts)], num_bg_images)
