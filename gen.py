@@ -259,6 +259,7 @@ def generate_im(char_ims, num_bg_images):
 def load_fonts(folder_path):
     font_char_ims = {}
     fonts = [f for f in os.listdir(folder_path) if f.endswith('.ttf')]
+    print(fonts)
     for font in fonts:
         font_char_ims[font] = dict(make_char_ims(os.path.join(folder_path,
                                                               font),
@@ -276,6 +277,7 @@ def generate_ims():
     """
     variation = 1.0
     fonts, font_char_ims = load_fonts(FONT_DIR)
+    print(fonts)
     num_bg_images = len(os.listdir("bgs"))
     while True:
         yield generate_im(font_char_ims[random.choice(fonts)], num_bg_images)
@@ -287,6 +289,6 @@ if __name__ == "__main__":
     for img_idx, (im, c, p) in enumerate(im_gen):
         fname = "test/{:08d}_{}_{}.png".format(img_idx, c,
                                                "1" if p else "0")
-        print fname
+        print (fname)
         cv2.imwrite(fname, im * 255.)
 
